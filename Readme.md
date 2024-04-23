@@ -8,7 +8,8 @@
 
 Puedes saber más sobre las monedas soportadas en: [Supported Currencies](https://www.exchangerate-api.com/docs/supported-currencies).
 
-Este proyecto es la resolución de: Conversor de Moneda - Challenge ONE - Java - Back end.
+Este proyecto es la resolución de: 
+> Conversor de Moneda - Challenge ONE - Java - Back end
 
 ### Requerimientos
 
