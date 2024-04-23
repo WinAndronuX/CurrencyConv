@@ -6,7 +6,6 @@ import com.winandronux.utils.GlobalVars;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
@@ -33,21 +32,21 @@ public class Currency {
         return this.code + " -> " + this.name;
     }
 
-    private ExchangeRateResponse requestConvert(String API_KEY) throws IOException, InterruptedException {
+    private ExchangeRateResponse requestConvert() throws IOException, InterruptedException {
         var request = HttpRequest.newBuilder()
-                .uri(URI.create("https://v6.exchangerate-api.com/v6/" + API_KEY + "/latest/" + this.code))
+                .uri(URI.create("https://v6.exchangerate-api.com/v6/" + GlobalVars.API_KEY + "/latest/" + this.code))
                 .build();
         HttpResponse<String> response = GlobalVars.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return GlobalVars.gson.fromJson(response.body(), ExchangeRateResponse.class);
     }
 
-    public String[] convert(double amount, String currencyCodes, String API_KEY) {
+    public String[] convert(double amount, String currencyCodes) {
         var listCurrencyCodes = currencyCodes.split(",");
 
         var results = new ArrayList<String>();
 
         try {
-            var response = requestConvert(API_KEY);
+            var response = requestConvert();
 
             if (response.result().equals("success")) {
                 var data = response.conversionRates();
@@ -56,8 +55,10 @@ public class Currency {
 
                     var x = data.get(currencyCode);
                     if (x != null) {
+                        var targetCurrency = GlobalVars.currencies.get(currencyCode);
+
                         double convResult = (x * amount);
-                        results.add(currencyCode + " -> " + GlobalVars.decimalFormat.format(convResult));
+                        results.add(targetCurrency.getName() + " (" + targetCurrency.getCode() + ")" + " -> " + GlobalVars.decimalFormat.format(convResult));
                     } else {
                         throw new InvalidCurrencyCodeException(currencyCode);
                     }
@@ -72,30 +73,30 @@ public class Currency {
         return results.toArray(new String[0]);
     }
 
-    public String[] convert(double amount, String API_KEY) {
-        var results = new ArrayList<String>();
-
-        try {
-            var response = requestConvert(API_KEY);
-
-            if (response.result().equals("success")) {
-                var data = response.conversionRates();
-
-                for (var key : data.keySet()) {
-                    var arg = data.get(key);
-
-                    if (!key.equals(this.code)) {
-                        double convResult = (arg * amount);
-                        results.add(key + " -> " + GlobalVars.decimalFormat.format(convResult));
-                    }
-                }
-            } else {
-                throw new APIException(response.errorType());
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        return results.toArray(new String[0]);
-    }
+//    public String[] convert(double amount) {
+//        var results = new ArrayList<String>();
+//
+//        try {
+//            var response = requestConvert();
+//
+//            if (response.result().equals("success")) {
+//                var data = response.conversionRates();
+//
+//                for (var key : data.keySet()) {
+//                    var arg = data.get(key);
+//
+//                    if (!key.equals(this.code)) {
+//                        double convResult = (arg * amount);
+//                        results.add(getName() + " (" + getCode() + ")" + " -> " + GlobalVars.decimalFormat.format(convResult));
+//                    }
+//                }
+//            } else {
+//                throw new APIException(response.errorType());
+//            }
+//        } catch (IOException | InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return results.toArray(new String[0]);
+//    }
 }

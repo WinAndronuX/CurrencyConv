@@ -1,14 +1,7 @@
 
-import com.winandronux.models.Currency;
-import com.winandronux.models.SupportedCodesResponse;
+import com.winandronux.App.App;
 import com.winandronux.utils.GlobalVars;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
 
@@ -16,20 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println(Arrays.toString(args));
+        System.out.println("Loading...");
+        GlobalVars.init(API_KEY);
+        System.out.println("Ready!!!");
 
-        GlobalVars.init();
-
-        var mxn = new Currency("MXN", "Mexican Peso");
-
-        try {
-            var t = mxn.convert(200, "USD", API_KEY);
-
-            for (var c : t) {
-                System.out.println(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        App.init();
     }
 }
