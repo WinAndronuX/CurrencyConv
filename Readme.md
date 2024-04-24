@@ -1,6 +1,6 @@
 ﻿## CurrencyConv
 
-![CurrencyConv screenshot](https://raw.githubusercontent.com/WinAndronuX/CurrencyConv/master/screenshots/screenshot.png)
+![CurrencyConv screenshot](https://raw.githubusercontent.com/WinAndronuX/CurrencyConv/master/screenshots/screenshot_1.png)
 
 ### Introducccion
 
