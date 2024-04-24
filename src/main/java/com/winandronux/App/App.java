@@ -19,7 +19,16 @@ public class App {
                 *   Author: Luis Daniel Salazar            *
                 ********************************************
                 
-                Type "help" or "?" for help
+                Usage: conv [amount] [base_currency] to [targets_currency]
+                
+                To display the supported currencies type “supported”
+                
+                Examples:
+                
+                conv 1 USD to MXN
+                conv 1 USD to ARS,COP,CLP,PEN
+                
+                For more info type "help" or "?"
                 """);
 
         var ctrl = true;
@@ -48,6 +57,14 @@ public class App {
                         System.out.println(currency.getCode() + ": " + currency.getName());
                     }
                     break;
+                case "search":
+                    var query = String.join(" ", cmd.getArguments());
+                    for (var currency : GlobalVars.currencies.values()) {
+                        if (currency.getName().toLowerCase().contains(query.toLowerCase())) {
+                            System.out.println(currency.getCode() + ": " + currency.getName());
+                        }
+                    }
+                    break;
                 case "help", "?":
                     System.out.println("""
                                 conv            Currency Converter
@@ -57,8 +74,25 @@ public class App {
                                                     targets_currency: supported code currency or list of supported
                                                                       currencies separated by comma ","
                                 supported       Shows a list of available currencies
+                                search          Return all currencies matching the query
+                                                Usage: search [query]
+                                                    Examples:
+                                                        search Peso -> Returns all currencies named "pesos"
+                                                        search Peruvian -> Returns the currency used in Peru
+                                                    Tip: For country names use their demonym
+                                                        Mexico -> Mexican
+                                                        Argentina -> Argentine
+                                version         Shows the program version
+                                clear           Cleans the screen
                                 quit, q         Exit the program
                                 help, ?         Shows this help message""");
+                    break;
+                case "version":
+                    System.out.println("Program Version: 1.1");
+                    break;
+                case "clear":
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
                     break;
                 case "quit", "q":
                     ctrl = false;

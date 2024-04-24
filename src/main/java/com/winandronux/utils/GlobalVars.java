@@ -24,7 +24,7 @@ public class GlobalVars {
 
     public static String API_KEY;
 
-    public static DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    public static DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public static Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
