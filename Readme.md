@@ -16,7 +16,7 @@ Este proyecto es la resolución de:
  - Java >= 17
 
 ### Instalación y ejecución
-Ve a [Release v1.0.0](https://github.com/WinAndronuX/CurrencyConv/releases/tag/v1.0.0) y descarga CurrencyConv.jar
+Ve a [Release v1.1](https://github.com/WinAndronuX/CurrencyConv/releases/tag/v1.1) y descarga CurrencyConv.jar
 
 Abre una terminal/linea de comandos  y ejecuta:
 
@@ -28,8 +28,18 @@ Abre una terminal/linea de comandos  y ejecuta:
    - Syntaxis: `conv [amount] [base_currency] to [targets_currency]`
      - `amount`: Cualquier numero positivo
      - `base_currency`: Cualquier currency code valido -> [Supported Currencies](https://www.exchangerate-api.com/docs/supported-currencies)
-     - `targets_currency`: Uno o varios currency codes validos separados por `","`
+     - `targets_currency`: Uno o varios currency codes válidos separados por `","`
  - `supported`: Muestra una lista de todos los currency codes soportados
+ - `search`: Return all currencies matching the query
+    - Usage: `search [query]`
+      - Examples:
+        - `search Peso` -> Returns all currencies named "pesos"
+        - `search Peruvian` -> Returns the currency used in Peru
+      - Tip: For country names use their demonym
+        - Mexico -> Mexican
+        - Argentina -> Argentine
+- `version`: Shows the program version
+- `clear`: Cleans the screen
  - `quit, q`: Salir del programa
  - `help, ?`: Muestra un mensaje de ayuda
 
